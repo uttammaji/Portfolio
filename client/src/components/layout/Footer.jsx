@@ -102,7 +102,7 @@ export default function Footer() {
                     </span>
                   </a>
                   <a
-                    href="https://linkedin.com/in/uttammaji"
+                    href="https://linkedin.com/in/uttam-maji-99070p0"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group text-sm text-secondary hover:text-accent transition-colors flex items-center gap-2"
