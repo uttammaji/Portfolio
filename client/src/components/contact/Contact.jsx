@@ -5,6 +5,9 @@ import Container from '@/components/ui/Container';
 
 const EMAIL = 'uttammaji842@gmail.com';
 
+// 1. Automatically use Vercel's env variable, or fallback to your Render URL
+const API_URL = import.meta.env.VITE_API_URL || 'https://portfolio-server.onrender.com';
+
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [errors, setErrors] = useState({});
@@ -18,8 +21,8 @@ export default function Contact() {
     setServerMessage('');
 
     try {
-      // REPLACE WITH YOUR ACTUAL BACKEND URL IN PRODUCTION
-      const response = await fetch('http://localhost:5000/api/contact', {
+      // 2. Point to the live backend API
+      const response = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -57,18 +60,57 @@ export default function Contact() {
     <section id="contact" className="relative py-24 sm:py-32">
       <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
       <Container>
-        {/* Header ... (Keep your existing header code) */}
+        {/* Header */}
+        <div className="mb-12">
+          <div className="flex items-center gap-4 mb-4">
+            <span className="font-mono text-sm text-accent">08</span>
+            <span className="font-mono text-sm text-muted uppercase tracking-widest">
+              CONTACT
+            </span>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+          <h2 className="font-handwritten text-[clamp(2rem,5vw,3.5rem)] leading-tight text-foreground mb-4">
+            Have an idea worth building? <br/>
+            <span className="text-accent">Let's talk.</span>
+          </h2>
+          <p className="text-lg text-secondary leading-relaxed max-w-2xl">
+            I'm open to full-time opportunities, interesting products, freelance projects and collaborations.
+          </p>
+        </div>
 
         <div className="grid lg:grid-cols-5 gap-10">
+          {/* Left Side: Contact Cards */}
           <div className="lg:col-span-2 space-y-3">
-             {/* ... Keep your existing email/github/linkedin cards ... */}
+            <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 p-4 border border-border bg-card hover:border-accent/40 transition-colors group">
+              <div className="w-10 h-10 border border-border flex items-center justify-center group-hover:border-accent/60 transition-colors">
+                <Mail className="w-4 h-4 text-accent" />
+              </div>
+              <div>
+                <div className="font-mono text-[10px] text-muted tracking-wider">$ send-email</div>
+                <div className="text-sm text-foreground font-medium mt-0.5">{EMAIL}</div>
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-muted ml-auto group-hover:text-accent transition-colors" />
+            </a>
+
+            {/* You can add GitHub and LinkedIn cards here matching the style above */}
           </div>
 
+          {/* Right Side: Form */}
           <motion.form
             onSubmit={handleSubmit}
             className="lg:col-span-3 relative border border-border bg-card overflow-hidden"
           >
-             {/* ... Keep your existing form header ... */}
+            <div className="flex items-center justify-between border-b border-border px-5 py-3">
+              <div className="flex items-center gap-2">
+                <Terminal className="w-3.5 h-3.5 text-accent" />
+                <span className="font-mono text-xs text-muted uppercase tracking-widest">
+                  / compose-message
+                </span>
+              </div>
+              <span className="font-mono text-[10px] text-muted">
+                {status === 'loading' ? 'sending...' : status === 'success' ? 'sent' : 'ready'}
+              </span>
+            </div>
 
             <div className="p-5 space-y-5">
               {/* Name */}
