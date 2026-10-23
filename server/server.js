@@ -16,13 +16,17 @@ const allowedOrigins = [
     process.env.FRONTEND_URL || 'http://localhost:5173',
     'http://localhost:5173', // Vite dev server
     'http://localhost:4173', // Vite preview
+    'https://portfolio-jixi.vercel.app', // <-- YOUR LIVE VERCEL URL
 ];
 
 app.use(
     cors({
         origin: (origin, callback) => {
             // Allow requests with no origin (e.g. Postman, curl) or whitelisted origins
-            if (!origin || allowedOrigins.includes(origin)) {
+            if (!origin ||
+                allowedOrigins.includes(origin) ||
+                origin.endsWith('.vercel.app') // <-- Allows Vercel preview deployments
+            ) {
                 callback(null, true);
             } else {
                 callback(new Error(`CORS: origin "${origin}" not allowed`));
