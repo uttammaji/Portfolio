@@ -114,7 +114,7 @@ export default function Footer() {
                     </span>
                   </a>
                   <a
-                    href="mailto:uttam.maji@example.com"
+                    href="mailto:uttammaji842@gmail.com"
                     className="group text-sm text-secondary hover:text-accent transition-colors flex items-center gap-2"
                   >
                     <Mail className="w-3.5 h-3.5 text-muted group-hover:text-accent transition-colors" />
